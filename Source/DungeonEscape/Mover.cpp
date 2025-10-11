@@ -25,7 +25,7 @@ void UMover::BeginPlay()
     AActor* MyOwner = GetOwner();
 
     StartLocation = MyOwner->GetActorLocation();
-    TargetLocation = StartLocation + MovementOffset;
+    
 
 }
 
@@ -35,11 +35,26 @@ void UMover::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponent
     Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
     if (bShouldMove)
     {
-        FVector Currentlocation = GetOwner()->GetActorLocation();
+        TargetLocation = StartLocation + MovementOffset;  // Target location is the start location + the movement offset, when the boolean is true.
+    }
+    else
+    {
+        TargetLocation = StartLocation;
+    }
+    FVector Currentlocation = GetOwner()->GetActorLocation();
+   
+    ReachedTarget = Currentlocation.Equals(TargetLocation);
 
+    if (ReachedTarget == false)
+    {
         float Speed = MovementOffset.Length() / MovementTime;
         FVector NewLocation = FMath::VInterpConstantTo(Currentlocation, TargetLocation, DeltaTime, Speed);
 
-        GetOwner()->SetActorLocation(NewLocation); //
+        GetOwner()->SetActorLocation(NewLocation);
+
+       
     }
+    
+    
 };
+
