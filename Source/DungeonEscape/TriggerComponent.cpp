@@ -13,6 +13,24 @@ void UTriggerComponent::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	if (MoverActor != nullptr)
+	{
+	 Mover =	MoverActor->FindComponentByClass<UMover>();
+	 if (Mover != nullptr)
+	 {
+		 UE_LOG(LogTemp, Display, TEXT("Found the component"));
+		 Mover->bShouldMove = true;
+	 }
+	 else
+	 {
+		 UE_LOG(LogTemp, Display, TEXT("Failed to find component!"));
+	 }
+
+	}
+	else
+    {
+		UE_LOG(LogTemp, Display, TEXT("MoverActor is nullptr"));
+	}
 }
 
 void UTriggerComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
