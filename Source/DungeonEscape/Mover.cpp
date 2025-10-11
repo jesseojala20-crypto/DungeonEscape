@@ -3,39 +3,43 @@
 
 #include "Mover.h"
 
+
+#include "Math/UnrealMathUtility.h" //you might need this for interpolation functions
+
 // Sets default values for this component's properties
 UMover::UMover()
 {
-	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
-	// off to improve performance if you don't need them.
-	PrimaryComponentTick.bCanEverTick = true;
+    // Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
+    // off to improve performance if you don't need them.
+    PrimaryComponentTick.bCanEverTick = true;
 
-	// ...
+    // ...
 }
 
 
 // Called when the game starts
 void UMover::BeginPlay()
 {
-	Super::BeginPlay();
+    Super::BeginPlay();
 
-	AActor* MyOwner = GetOwner();
+    AActor* MyOwner = GetOwner();
 
-	StartLocation = MyOwner->GetActorLocation();
-	UE_LOG(LogTemp, Display, TEXT("%s is in location: %s"), *MyOwner->GetActorNameOrLabel(),
-		*StartLocation.ToCompactString());
+    StartLocation = MyOwner->GetActorLocation();
+    TargetLocation = StartLocation + MovementOffset;
 
 }
 
 // Called every frame
 void UMover::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+    Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+    if (bShouldMove)
+    {
+        FVector Currentlocation = GetOwner()->GetActorLocation();
 
-	FVector Currentlocation = GetOwner() ->GetActorLocation();
+        float Speed = MovementOffset.Length() / MovementTime;
+        FVector NewLocation = FMath::VInterpConstantTo(Currentlocation, TargetLocation, DeltaTime, Speed);
 
-	Currentlocation.Z = Currentlocation.Z + 100.0f * DeltaTime;
-
-	GetOwner()->SetActorLocation(Currentlocation);
-}
-
+        GetOwner()->SetActorLocation(NewLocation); //
+    }
+};
