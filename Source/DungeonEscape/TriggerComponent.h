@@ -28,6 +28,6 @@ public:
 
     UPROPERTY(EditAnywhere)
     AActor* MoverActor;
-
+    UPROPERTY()
     UMover* Mover;
 };
