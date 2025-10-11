@@ -2,8 +2,6 @@
 
 
 #include "Mover.h"
-
-
 #include "Math/UnrealMathUtility.h" //you might need this for interpolation functions
 
 // Sets default values for this component's properties
