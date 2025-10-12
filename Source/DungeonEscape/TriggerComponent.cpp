@@ -45,18 +45,23 @@ void UTriggerComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAct
 
 void UTriggerComponent::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	if (Mover)
+	if (OtherActor->ActorHasTag("PressurePlateActivator")) //This forces the game to check if the colliding actor is the player
 	{
-		Mover->bShouldMove = true; //on collision this  function will be called.
+		if (Mover)
+		{
+			Mover->bShouldMove = true; //on collision this  function will be called.
+		}
 	}
-	}
+}
 	
 
 void UTriggerComponent::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
-	if (Mover)
+	if (OtherActor->ActorHasTag("PressurePlateActivator")) //This forces the game to check if the colliding actor is the player
 	{
-		Mover->bShouldMove = false; //on leaving collider this function will be called.
+		if (Mover)
+		{
+			Mover->bShouldMove = false; //on collision this  function will be called.
+		}
 	}
-	
 }
