@@ -43,28 +43,35 @@ void UTriggerComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAct
 	
 }
 
+void UTriggerComponent::Trigger(bool NewTriggervalue)
+{
+	IsTriggered = NewTriggervalue;
+
+	if (Mover)
+	{
+		Mover->bShouldMove = IsTriggered; //on collision this  function will be called.
+	}
+	else
+	{
+	 UE_LOG(LogTemp, Display, TEXT("%s doesn't have a mover to trigger"), *GetOwner()->GetActorNameOrLabel());
+	}
+}
+
 void UTriggerComponent::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	if (OtherActor && OtherActor->ActorHasTag("PressurePlateActivator")) //This forces the game to check if the colliding actor is the player and has the right name
+	if(!IsTriggered)
 	{
-		
-		
-		if (Mover)
-		{
-		 Mover->bShouldMove = true; //on collision this  function will be called.
-		}
-		
+		Trigger(true); //this mechanism will make sure that if the collider is triggered it doesn't do so again
 	}
 }
 	
 
 void UTriggerComponent::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
-	if (OtherActor && OtherActor->ActorHasTag("PressurePlateActivator")) // Now the condition is properly closed
+	if (OtherActor && OtherActor->ActorHasTag("PressurePlateActivator"))
+	if(IsTriggered)
 	{
-		if (Mover)
-		{
-			Mover->bShouldMove = false; // on leaving collider this function will be called.
-		}
+		Trigger(false); //this mechanism will make sure that if the collider is triggered it doesn't do so again
 	}
 }
