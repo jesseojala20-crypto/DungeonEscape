@@ -54,5 +54,15 @@ void UMover::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponent
     }
     
     
-};
+}
+
+bool UMover::GetShouldMove()
+{
+    return bShouldMove;
+}
+
+void UMover::SetShouldMove(bool NewShouldMove)
+{
+    bShouldMove = NewShouldMove;
+}
 

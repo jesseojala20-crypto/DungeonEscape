@@ -8,7 +8,7 @@
 #include "TriggerComponent.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 

@@ -49,7 +49,7 @@ void UTriggerComponent::Trigger(bool NewTriggervalue)
 
 	if (Mover)
 	{
-		Mover->bShouldMove = IsTriggered; //on collision this  function will be called.
+		Mover->SetShouldMove(IsTriggered); 
 	}
 	else
 	{
