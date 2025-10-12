@@ -29,9 +29,11 @@ void UTriggerComponent::BeginPlay()
 	{
 		UE_LOG(LogTemp, Display, TEXT("MoverActor is nullptr"));
 	}
-
-	OnComponentBeginOverlap.AddDynamic(this, &UTriggerComponent::OnOverlapBegin); //this links the delegate to the function call.
-	OnComponentEndOverlap.AddDynamic(this, &UTriggerComponent::OnOverlapEnd); //this links the delegate to the function call.
+	if (IsPressurePlate)
+	{
+		OnComponentBeginOverlap.AddDynamic(this, &UTriggerComponent::OnOverlapBegin); //this links the delegate to the function call.
+		OnComponentEndOverlap.AddDynamic(this, &UTriggerComponent::OnOverlapEnd); //this links the delegate to the function call.
+	}
 }
 
 void UTriggerComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)

@@ -26,6 +26,10 @@ public:
     // Called every frame
     virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+
+    UPROPERTY(EditAnywhere)
+    bool IsPressurePlate = false;
+
     UPROPERTY(EditAnywhere)
     AActor* MoverActor;
     UPROPERTY()
@@ -37,4 +41,5 @@ public:
 
     UFUNCTION()
     void OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
+
 };
