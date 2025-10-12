@@ -13,10 +13,10 @@ void UTriggerComponent::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	if (MoverActor != nullptr)
+	if (MoverActor)   //If Moveractor is not nullpointer
 	{
 	 Mover =	MoverActor->FindComponentByClass<UMover>();
-	 if (Mover != nullptr)
+	 if (Mover) // is not equal to nullpointer.
 	 {
 		 UE_LOG(LogTemp, Display, TEXT("Found the component"));
 		 Mover->bShouldMove = true;
@@ -27,7 +27,7 @@ void UTriggerComponent::BeginPlay()
 	 }
 
 	}
-	else
+	else //MoverActor is nullptr
     {
 		UE_LOG(LogTemp, Display, TEXT("MoverActor is nullptr"));
 	}
