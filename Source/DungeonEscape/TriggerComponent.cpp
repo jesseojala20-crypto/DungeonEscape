@@ -62,18 +62,25 @@ void UTriggerComponent::Trigger(bool NewTriggervalue)
 void UTriggerComponent::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	if (OtherActor && OtherActor->ActorHasTag("PressurePlateActivator")) //This forces the game to check if the colliding actor is the player and has the right name
+	{
+		ActivatorCount++;
 		if (!IsTriggered)
 		{
 			Trigger(true); //this mechanism will make sure that if the collider is triggered it doesn't do so again
 		}
+
+	}
 }
 
 
 void UTriggerComponent::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
 	if (OtherActor && OtherActor->ActorHasTag("PressurePlateActivator"))
-		if (IsTriggered)
-		{
-			Trigger(false); //this mechanism will make sure that if the collider is triggered it doesn't do so again
-		}
+	{
+		ActivatorCount--;
+			if (IsTriggered)
+			{
+				Trigger(false); //this mechanism will make sure that if the collider is triggered it doesn't do so again
+			}
+	}
 }
