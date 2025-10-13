@@ -78,7 +78,7 @@ void UTriggerComponent::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor
 	if (OtherActor && OtherActor->ActorHasTag("PressurePlateActivator"))
 	{
 		ActivatorCount--;
-			if (IsTriggered)
+			if (IsTriggered && (ActivatorCount == 0))
 			{
 				Trigger(false); //this mechanism will make sure that if the collider is triggered it doesn't do so again
 			}
