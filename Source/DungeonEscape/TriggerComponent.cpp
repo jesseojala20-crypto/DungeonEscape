@@ -1,12 +1,15 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
+// Fill out your copyright notice in the Description page of Project Settings.
+
+
 #include "TriggerComponent.h"
 
 UTriggerComponent::UTriggerComponent()
 {
 	PrimaryComponentTick.bCanEverTick = true;
-	
+
 }
 
 void UTriggerComponent::BeginPlay()
@@ -18,7 +21,7 @@ void UTriggerComponent::BeginPlay()
 		Mover = MoverActor->FindComponentByClass<UMover>();
 		if (Mover) // is not equal to nullpointer.
 		{
-			UE_LOG(LogTemp, Display, TEXT("Found the component"));	
+			UE_LOG(LogTemp, Display, TEXT("Found the component"));
 		}
 		else
 		{
@@ -39,39 +42,38 @@ void UTriggerComponent::BeginPlay()
 void UTriggerComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-	
-	
+
+
 }
 
 void UTriggerComponent::Trigger(bool NewTriggervalue)
 {
 	IsTriggered = NewTriggervalue;
-
 	if (Mover)
 	{
-		Mover->SetShouldMove(IsTriggered); 
+		Mover->SetShouldMove(IsTriggered);
 	}
 	else
 	{
-	 UE_LOG(LogTemp, Display, TEXT("%s doesn't have a mover to trigger"), *GetOwner()->GetActorNameOrLabel());
+		UE_LOG(LogTemp, Display, TEXT("%s doesn't have a mover to trigger"), *GetOwner()->GetActorNameOrLabel());
 	}
 }
 
 void UTriggerComponent::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	if (OtherActor && OtherActor->ActorHasTag("PressurePlateActivator")) //This forces the game to check if the colliding actor is the player and has the right name
-	if(!IsTriggered)
-	{
-		Trigger(true); //this mechanism will make sure that if the collider is triggered it doesn't do so again
-	}
+		if (!IsTriggered)
+		{
+			Trigger(true); //this mechanism will make sure that if the collider is triggered it doesn't do so again
+		}
 }
-	
+
 
 void UTriggerComponent::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
 	if (OtherActor && OtherActor->ActorHasTag("PressurePlateActivator"))
-	if(IsTriggered)
-	{
-		Trigger(false); //this mechanism will make sure that if the collider is triggered it doesn't do so again
-	}
+		if (IsTriggered)
+		{
+			Trigger(false); //this mechanism will make sure that if the collider is triggered it doesn't do so again
+		}
 }
