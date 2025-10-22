@@ -25,6 +25,8 @@ void ALock::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	SetIsKeyInLock(false);
+	
 }
 
 // Called every frame
@@ -32,5 +34,17 @@ void ALock::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+}
+
+void ALock::SetIsKeyInLock(bool NewIsKeyInLock)
+{
+	IsKeyInLock = NewIsKeyInLock;
+	TriggerComp->Trigger(NewIsKeyInLock);
+	KeyItemMesh->SetVisibility(NewIsKeyInLock);
+}
+
+bool ALock::GetIsKeyInLock()
+{
+	return IsKeyInLock;
 }
 

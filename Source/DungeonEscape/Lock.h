@@ -32,4 +32,14 @@ public:
 
 	UPROPERTY(VisibleAnywhere)
 	UStaticMeshComponent* KeyItemMesh; //this will be the item that we will place into to the lock
+
+	UPROPERTY(EditAnywhere)
+	FString KeyItemName;
+
+	void SetIsKeyInLock(bool NewIsKeyInLock); // Setter function to be able to acces the Private Boolean IsKeyInLock
+	bool GetIsKeyInLock();                    // Getter function to be able to acces the Private Boolean IsKeyInLock.
+
+private:
+	   UPROPERTY(VisibleAnywhere)
+	   bool IsKeyInLock = false;
 };
