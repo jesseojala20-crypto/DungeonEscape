@@ -34,6 +34,7 @@ void UTriggerComponent::BeginPlay()
 	}
 	if (IsPressurePlate)
 	{
+		UE_LOG(LogTemp, Warning, TEXT("PressurePlate overlap bindings active"));
 		OnComponentBeginOverlap.AddDynamic(this, &UTriggerComponent::OnOverlapBegin); //this links the delegate to the function call.
 		OnComponentEndOverlap.AddDynamic(this, &UTriggerComponent::OnOverlapEnd); //this links the delegate to the function call.
 	}
