@@ -68,32 +68,30 @@ void ADungeonEscapeCharacter::SetupPlayerInputComponent(UInputComponent* PlayerI
 	}
 }
 
+void TestFunction(FVector& Vector1)
+{
+	Vector1.X = 100.0f;
+	Vector1.Y = 20.0f;
+	Vector1.Z = 30.0;
+}
+
 void ADungeonEscapeCharacter::Interact()
 {
 
-		FVector StartPoint = FirstPersonCameraComponent->GetComponentLocation();
-		FVector EndPoint = StartPoint + (FirstPersonCameraComponent->GetForwardVector() * MaxInteractionDistance);
-		DrawDebugLine(GetWorld(), StartPoint, EndPoint, FColor::Cyan, false, 10.0f);
-		//GetWorld()->SweepSingleByChannel();
+	FVector StartPoint = FirstPersonCameraComponent->GetComponentLocation();
+	FVector EndPoint = StartPoint + (FirstPersonCameraComponent->GetForwardVector() * MaxInteractionDistance);
+	DrawDebugLine(GetWorld(), StartPoint, EndPoint, FColor::Cyan, false, 10.0f);
+	//GetWorld()->SweepSingleByChannel();
 
-		FCollisionShape InteractionSphere = FCollisionShape::MakeSphere(InteractionSphereRadius);
-		DrawDebugSphere(GetWorld(), StartPoint, InteractionSphereRadius, 20, FColor::Green, false, 10.0f);
-		DrawDebugSphere(GetWorld(), EndPoint, InteractionSphereRadius, 20, FColor::Red, false, 10.0f);
+	FCollisionShape InteractionSphere = FCollisionShape::MakeSphere(InteractionSphereRadius);
+	DrawDebugSphere(GetWorld(), StartPoint, InteractionSphereRadius, 20, FColor::Green, false, 10.0f);
+	DrawDebugSphere(GetWorld(), EndPoint, InteractionSphereRadius, 20, FColor::Red, false, 10.0f);
 
-	FVector MyVector1 = FVector(1.0, 2.0, 3.0);
-	FVector& MyVecRef = MyVector1;
+	FVector TestVector = FVector(1.0, 1.0, 1.0);
+	UE_LOG(LogTemp, Display, TEXT("Before: %s"), *TestVector.ToCompactString());
 
-	UE_LOG(LogTemp, Display, TEXT("MyVec: %s"), *MyVector1.ToCompactString());
-	UE_LOG(LogTemp, Display, TEXT("Vecref: %s"), *MyVecRef.ToCompactString());
-
-	
-	MyVecRef.X = 10.0f;
-	MyVecRef.Y = 14.0f;
-	MyVecRef.Z = 9.0f;
-
-	UE_LOG(LogTemp, Display, TEXT("MyVec: %s"), *MyVector1.ToCompactString());
-	UE_LOG(LogTemp, Display, TEXT("Vecref: %s"), *MyVecRef.ToCompactString());
-
+	TestFunction(TestVector);
+	UE_LOG(LogTemp, Display, TEXT("After: %s"), *TestVector.ToCompactString());
 }
 
 
