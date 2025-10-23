@@ -50,7 +50,6 @@ void UMover::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponent
 
         GetOwner()->SetActorLocation(NewLocation);
 
-       
     }
     
     

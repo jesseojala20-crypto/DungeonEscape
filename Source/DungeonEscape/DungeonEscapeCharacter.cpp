@@ -71,6 +71,7 @@ void ADungeonEscapeCharacter::SetupPlayerInputComponent(UInputComponent* PlayerI
 void ADungeonEscapeCharacter::Interact()
 {
 	UE_LOG(LogTemp, Display, TEXT("Interact is pressed"));
+	//GetWorld()->SweepSingleByChannel();
 }
 
 
