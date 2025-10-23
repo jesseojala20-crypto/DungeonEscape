@@ -33,8 +33,6 @@ void ALock::BeginPlay()
 void ALock::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
-	UE_LOG(LogTemp, Display, TEXT("TimeSeconds: %f"), GetWorld()->TimeSeconds);
 }
 
 void ALock::SetIsKeyInLock(bool NewIsKeyInLock)
