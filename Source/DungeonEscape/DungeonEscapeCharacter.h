@@ -94,6 +94,9 @@ public:
 	UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
 	
 	void Interact();
+	
+	UPROPERTY(EditAnywhere)
+	float MaxInteractionDistance = 300.0f;
 
 };
 
