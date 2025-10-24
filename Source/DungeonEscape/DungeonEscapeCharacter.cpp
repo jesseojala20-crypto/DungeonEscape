@@ -121,6 +121,14 @@ void ADungeonEscapeCharacter::Interact()
 						UE_LOG(LogTemp, Display, TEXT("Player doesn't have the KeyItem"));
 					}
 				}
+				else
+				{
+					int32 ItemAdded = ItemList.Add(LockActor->KeyItemName);
+					if (ItemAdded)
+					{
+						LockActor->SetIsKeyInLock(false);
+					}
+				}
 			}
 		}
 	}
