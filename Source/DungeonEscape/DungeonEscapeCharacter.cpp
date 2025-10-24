@@ -8,6 +8,8 @@
 #include "EnhancedInputComponent.h"
 #include "InputActionValue.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "CollectableItem.h"
+#include "Lock.h"
 #include "DungeonEscape.h"
 
 ADungeonEscapeCharacter::ADungeonEscapeCharacter()
@@ -90,12 +92,22 @@ void ADungeonEscapeCharacter::Interact()
 		
 		if (HitActor->ActorHasTag("CollectableItem"))
 		{
-		 UE_LOG(LogTemp, Display, TEXT("Hit actor is a collectable"))
+			UE_LOG(LogTemp, Display, TEXT("Hit actor is a collectable"));
+			ACollectableItem* CollectableItem = Cast<ACollectableItem>(HitActor);
+			if (CollectableItem)
+			{
+				UE_LOG(LogTemp, Display, TEXT("Hit actor is a collectable item with name %s"), *CollectableItem->ItemName);
+			}
 		}
 
 		else if (HitActor->ActorHasTag("Lock"))
 		{
 			UE_LOG(LogTemp, Display, TEXT("Hit actor is a lock"))
+				ALock* LockActor = Cast<ALock>(HitActor); // now we can acces the functions of this class like item name ect.
+			if (LockActor)
+			{
+				UE_LOG(LogTemp, Display, TEXT("Hit actor is a Lock item with KeyItem name %s"), *LockActor->KeyItemName);
+			}
 		}
 	}
 	else
