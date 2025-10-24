@@ -96,7 +96,9 @@ void ADungeonEscapeCharacter::Interact()
 			ACollectableItem* CollectableItem = Cast<ACollectableItem>(HitActor);
 			if (CollectableItem)
 			{
-				UE_LOG(LogTemp, Display, TEXT("Hit actor is a collectable item with name %s"), *CollectableItem->ItemName);
+				ItemList.Add(CollectableItem->ItemName);
+
+				CollectableItem->Destroy(true);
 			}
 		}
 
