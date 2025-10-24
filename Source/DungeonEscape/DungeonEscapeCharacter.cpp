@@ -108,7 +108,19 @@ void ADungeonEscapeCharacter::Interact()
 				ALock* LockActor = Cast<ALock>(HitActor); // now we can acces the functions of this class like item name ect.
 			if (LockActor)
 			{
-				UE_LOG(LogTemp, Display, TEXT("Hit actor is a Lock item with KeyItem name %s"), *LockActor->KeyItemName);
+				
+				if (!LockActor->GetIsKeyInLock()) // checks if the key is not in the lock
+				{
+					int32 ItemsRemoved = ItemList.RemoveSingle(LockActor->KeyItemName);
+					if (ItemsRemoved)
+					{
+						LockActor->SetIsKeyInLock(true); // activates the lock
+					}
+					else
+					{
+						UE_LOG(LogTemp, Display, TEXT("Player doesn't have the KeyItem"));
+					}
+				}
 			}
 		}
 	}
